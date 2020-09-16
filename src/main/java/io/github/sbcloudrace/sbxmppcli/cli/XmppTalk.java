@@ -1,5 +1,10 @@
 package io.github.sbcloudrace.sbxmppcli.cli;
 
+import io.github.sbcloudrace.sbxmppcli.cli.jaxb.util.MarshalXML;
+import io.github.sbcloudrace.sbxmppcli.cli.jaxb.util.UnmarshalXML;
+import io.github.sbcloudrace.sbxmppcli.cli.jaxb.xmpp.XMPP_IQPingType;
+import io.github.sbcloudrace.sbxmppcli.cli.jaxb.xmpp.XMPP_IQPongType;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -45,8 +50,8 @@ public class XmppTalk {
         }
         System.out.println("S->C [" + msg + "]");
         if (msg != null && !msg.isEmpty() && msg.contains("<ping xmlns=\"urn:xmpp:ping\"/>")) {
-//            XMPP_IQPingType openfirePing = (XMPP_IQPingType) UnmarshalXML.unMarshal(msg, XMPP_IQPingType.class);
-//            write(MarshalXML.marshal(new XMPP_IQPongType(openfirePing.getId())));
+            XMPP_IQPingType openfirePing = (XMPP_IQPingType) UnmarshalXML.unMarshal(msg, XMPP_IQPingType.class);
+            write(MarshalXML.marshal(new XMPP_IQPongType(openfirePing.getId())));
         }
         return msg;
     }
