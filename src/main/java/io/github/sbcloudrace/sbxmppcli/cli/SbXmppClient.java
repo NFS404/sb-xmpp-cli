@@ -2,6 +2,7 @@ package io.github.sbcloudrace.sbxmppcli.cli;
 
 import io.github.sbcloudrace.sbxmppcli.cli.jaxb.util.MarshalXML;
 import io.github.sbcloudrace.sbxmppcli.cli.jaxb.xmpp.XMPP_MessageType;
+import io.github.sbcloudrace.sbxmppcli.cli.jaxb.xmpp.XMPP_ResponseType;
 
 //@Scope("singleton")
 public class SbXmppClient {
@@ -31,8 +32,8 @@ public class SbXmppClient {
         xmppTalk.write(packet);
     }
 
-    public void send(Object object, Long to) {
-        String responseXmlStr = MarshalXML.marshal(object);
+    public void send(XMPP_ResponseType xmppResponseType, Long to) {
+        String responseXmlStr = MarshalXML.marshal(xmppResponseType);
         this.send(responseXmlStr, to);
     }
 
