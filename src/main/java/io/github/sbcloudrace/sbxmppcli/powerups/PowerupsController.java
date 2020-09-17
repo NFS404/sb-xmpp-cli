@@ -24,6 +24,5 @@ public class PowerupsController {
         powerupActivated.setPersonaId(100L);
         powerupActivatedResponse.setPowerupActivated(powerupActivated);
         SbXmppClient.getInstance().send(powerupActivatedResponse,100L);
-        System.out.println("[" + securityToken + "] - [" + targetId + "] - [" + powerupHash + "] - [" + receivers + "]");
     }
 }
