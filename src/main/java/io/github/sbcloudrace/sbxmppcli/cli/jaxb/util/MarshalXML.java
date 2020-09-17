@@ -19,7 +19,6 @@ public class MarshalXML {
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, false);
             jaxbMarshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);
             XmlRootElement xmlRootAnnotation = obj.getClass().getAnnotation(XmlRootElement.class);
-            System.out.println(xmlRootAnnotation);
             if (xmlRootAnnotation == null) {
                 String xmlTypeAnnotationName ="nothing";
                 XmlType xmlTypeAnnotation = obj.getClass().getAnnotation(XmlType.class);
