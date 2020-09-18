@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class PowerupsController {
 
-    private SbSessionServiceProxy sbSessionServiceProxy;
+    private final SbSessionServiceProxy sbSessionServiceProxy;
 
     @RequestMapping(value = "/activated/{securityToken}/{targetId}/{powerupHash}/{receivers}",
             method = RequestMethod.PUT)
@@ -30,7 +30,7 @@ public class PowerupsController {
         powerupActivated.setPersonaId(sbSessionServiceProxy.activePersonaId(securityToken));
         powerupActivatedResponse.setPowerupActivated(powerupActivated);
         for (String receiver : receivers.split("-")) {
-            Long receiverPersonaId = Long.valueOf(receiver);
+            long receiverPersonaId = Long.parseLong(receiver);
             if (receiverPersonaId > 10) {
                 SbXmppClient.getInstance().send(powerupActivatedResponse, receiverPersonaId);
             }
