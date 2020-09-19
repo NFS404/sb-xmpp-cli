@@ -3,12 +3,18 @@ package io.github.sbcloudrace.sbxmppcli.powerups;
 import io.github.sbcloudrace.sbxmppcli.cli.SbXmppClient;
 import io.github.sbcloudrace.sbxmppcli.cli.jaxb.xmpp.PowerupActivated;
 import io.github.sbcloudrace.sbxmppcli.cli.jaxb.xmpp.XMPP_ResponseType;
+import io.github.sbcloudrace.sbxmppcli.session.SbSessionServiceProxy;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+
 @Controller
 @RequestMapping("/powerups")
+@AllArgsConstructor
 public class PowerupsController {
+
+    private final SbSessionServiceProxy sbSessionServiceProxy;
 
     @RequestMapping(value = "/activated/{securityToken}/{targetId}/{powerupHash}/{receivers}",
             method = RequestMethod.PUT)
@@ -21,8 +27,13 @@ public class PowerupsController {
         PowerupActivated powerupActivated = new PowerupActivated();
         powerupActivated.setId(powerupHash);
         powerupActivated.setTargetPersonaId(targetId);
-        powerupActivated.setPersonaId(100L);
+        powerupActivated.setPersonaId(sbSessionServiceProxy.activePersonaId(securityToken));
         powerupActivatedResponse.setPowerupActivated(powerupActivated);
-        SbXmppClient.getInstance().send(powerupActivatedResponse,100L);
+        for (String receiver : receivers.split("-")) {
+            long receiverPersonaId = Long.parseLong(receiver);
+            if (receiverPersonaId > 10) {
+                SbXmppClient.getInstance().send(powerupActivatedResponse, receiverPersonaId);
+            }
+        }
     }
 }
