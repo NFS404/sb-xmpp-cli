@@ -24,6 +24,7 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _LobbyInvite_QNAME = new QName("", "LobbyInvite");
     private final static QName _PowerupActivated_QNAME = new QName("", "PowerupActivated");
 
     /**
@@ -34,11 +35,28 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link LobbyInvite }
+     * 
+     */
+    public LobbyInvite createLobbyInvite() {
+        return new LobbyInvite();
+    }
+
+    /**
      * Create an instance of {@link PowerupActivated }
      * 
      */
     public PowerupActivated createPowerupActivated() {
         return new PowerupActivated();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link LobbyInvite }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "", name = "LobbyInvite")
+    public JAXBElement<LobbyInvite> createLobbyInvite(LobbyInvite value) {
+        return new JAXBElement<LobbyInvite>(_LobbyInvite_QNAME, LobbyInvite.class, null, value);
     }
 
     /**

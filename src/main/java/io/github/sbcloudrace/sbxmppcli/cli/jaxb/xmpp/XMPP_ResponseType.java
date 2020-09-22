@@ -12,11 +12,14 @@ import javax.xml.bind.annotation.*;
 public class XMPP_ResponseType {
 
     @XmlElement(name = "PowerupActivated")
-    protected PowerupActivated powerupActivated;
+    private PowerupActivated powerupActivated;
+
+    @XmlElement(name = "LobbyInvite")
+    private LobbyInvite lobbyInvite;
 
     @XmlAttribute(name = "status")
-    protected int status = 1;
+    private int status = 1;
     @XmlAttribute(name = "ticket")
-    protected int ticket = 0;
+    private int ticket = 0;
 
 }
